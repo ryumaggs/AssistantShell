@@ -27,7 +27,6 @@ public class TextInitiator extends JPanel
         Container parent = buttonThatWasClicked.getParent();
         parent.remove(buttonThatWasClicked);
         //parent.revalidate();
-        parent.repaint();
         prompt.setBackground(Color.BLUE);
         prompt.setForeground(Color.WHITE);
         parent.add(prompt, BorderLayout.PAGE_END);

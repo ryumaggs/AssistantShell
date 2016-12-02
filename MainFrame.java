@@ -5,8 +5,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import javax.swing.JTextArea;
-import java.awt.Toolkit;
 public class MainFrame extends JFrame {
     JPanel contentPane;
     JLabel imageLabel = new JLabel();
