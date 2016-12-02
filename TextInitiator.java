@@ -16,7 +16,7 @@ public class TextInitiator extends JPanel
     public TextInitiator()
     {
         super(new BorderLayout());
-        theButton = new JButton("what'sup?");
+        theButton = new JButton("what's up?");
         theButton.setPreferredSize(new Dimension(200,30));
         add(theButton, BorderLayout.PAGE_END);
         theButton.addActionListener(this);
@@ -27,9 +27,8 @@ public class TextInitiator extends JPanel
         Container parent = buttonThatWasClicked.getParent();
         parent.remove(buttonThatWasClicked);
         //parent.revalidate();
-        prompt.setBackground(Color.BLUE);
-        prompt.setForeground(Color.WHITE);
-        parent.add(prompt, BorderLayout.PAGE_END);
+        TextInputProcessing(parent);
+        //setSize(new Dimension(400, 301));
         parent.repaint();
     }
     

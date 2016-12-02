@@ -1,19 +1,32 @@
+import java.awt.*;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
-
-public class TextInputProcessing {
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+public class TextInputProcessing extends JPanel
+								implements ActionListener
+{
 	String name;
 	String activation;
 	String EXIT = "exit";
 	
-	private TextInputProcessing(String name1, String activation1){
-		name = name1;
-		activation = activation1;
+	public TextInputProcessing(Container parent){
+		System.out.println("set up prompt via seperate class");
+		JTextArea prompt = new JTextArea();
+        prompt.setBackground(Color.BLUE);
+        prompt.setForeground(Color.WHITE);
+        parent.add(prompt, BorderLayout.PAGE_END);
 	}
 	
+	public void actionPerformed(ActionEvent e) {
+		getInput();
+	}
 	private boolean exit(String input, String exit){
 		if((input.toLowerCase()).equals(exit))
 			return true;
@@ -49,9 +62,10 @@ public class TextInputProcessing {
        }
 	}
 	
-	private void getInput(Scanner scan){
+	private void getInput(){
 		String input="";
 		String[] retu;
+		Scanner scan = new Scanner(System.in);
 
 		while(true){
 			System.out.print(">");
@@ -66,14 +80,13 @@ public class TextInputProcessing {
 				System.out.println(retu[i]);
 			}
 		}
+		scan.close();
+		System.exit(1);
 			//webPage("youtube");
 
 	}
 	
-	public static void main(String args[]){
-		Scanner scanner = new Scanner(System.in);
-		TextInputProcessing shell = new TextInputProcessing("Linda","Mornin");
-		shell.getInput(scanner);
+	public static void main(String args[]){;
 		System.out.println("goodbye");
 	}
 
