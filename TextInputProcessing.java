@@ -25,7 +25,7 @@ public class TextInputProcessing extends JPanel
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		getInput();
+		getInput(); // finish this
 	}
 	private boolean exit(String input, String exit){
 		if((input.toLowerCase()).equals(exit))
