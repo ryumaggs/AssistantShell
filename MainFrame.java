@@ -1,3 +1,7 @@
+/* This class will handle all of the graphical aspects to this,
+ * Setting up the frame with the gif + button, and setting up the
+ * JTextArea
+ */ 
 import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;

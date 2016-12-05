@@ -1,3 +1,5 @@
+
+
 import java.awt.*;
 import java.awt.Desktop;
 import java.io.IOException;
@@ -7,40 +9,38 @@ import java.util.*;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 public class TextInputProcessing extends JPanel
-								implements ActionListener
 {
 	String name;
 	String activation;
-	String EXIT = "exit";
 	
+	//Constructor for the input loop
 	public TextInputProcessing(Container parent){
 		System.out.println("set up prompt via seperate class");
 		JTextArea prompt = new JTextArea();
         prompt.setBackground(Color.BLUE);
         prompt.setForeground(Color.WHITE);
         parent.add(prompt, BorderLayout.PAGE_END);
+        prompt.requestFocusInWindow();
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		getInput(); // finish thisadad
-	}
-	private boolean exit(String input, String exit){
+	//checks for if exit was typed in
+	public static boolean exit(String input, String exit){
 		if((input.toLowerCase()).equals(exit))
 			return true;
 		return false;
 	}
 	
-	private String[] parseCommand(String input){ // counter not incrementing correctly. places everything in first slot of array
+	//parses the input command
+	public static String[] parseCommand(String input){ // counter not incrementing correctly. places everything in first slot of array
 		String[] tokens;
 		String delims = "\\s+";
 		tokens = input.split(delims);
 		return tokens;
 	}
 	
-	private void webPage(String url1){
+	//opens a web page with given input
+	public void webPage(String url1){
 		String url = "https://www." + url1 + ".com";
 		
         if(Desktop.isDesktopSupported()){
@@ -62,30 +62,23 @@ public class TextInputProcessing extends JPanel
        }
 	}
 	
-	private void getInput(){
-		String input="";
+	//infinite loop to keep getting input and respond accordingly
+	//consider changing to without the loop; does not fit well with JTextArea
+	//can just use KeyPre
+	public void proccessInput(String input){
 		String[] retu;
-		Scanner scan = new Scanner(System.in);
-
-		while(true){
-			System.out.print(">");
-			input = scan.next();
+		if(exit(input, "exit")==true) // checks for exit
+			System.exit(1);
+		retu = parseCommand(input);
 			
-			if(exit(input, EXIT)==true) // checks for exit
-				break;
-			
-			retu = parseCommand(input);
-			
-			for (int i = 0; i < retu.length; i++){
-				System.out.println(retu[i]);
-			}
+		for (int i = 0; i < retu.length; i++){
+			System.out.println(retu[i]);
 		}
-		scan.close();
-		System.exit(1);
 			//webPage("youtube");
 
 	}
 	
+	//main function
 	public static void main(String args[]){;
 		System.out.println("goodbye");
 	}

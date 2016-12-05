@@ -1,3 +1,7 @@
+/*
+ *  This class will handle keyboard inputs, such as mouse+ keyboard inputs
+ */
+
 import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -6,13 +10,16 @@ import javax.swing.JComponent;
 import javax.swing.JTextArea;
 import java.awt.Toolkit;
 import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 public class TextInitiator extends JPanel
-                           implements ActionListener
+                           implements ActionListener, KeyListener
 {
     JButton theButton;
     JTextArea prompt = new JTextArea();
+    TextInputProcessing input;
     public TextInitiator()
     {
         super(new BorderLayout());
@@ -26,29 +33,28 @@ public class TextInitiator extends JPanel
         JButton buttonThatWasClicked = (JButton)e.getSource();
         Container parent = buttonThatWasClicked.getParent();
         parent.remove(buttonThatWasClicked);
-        //parent.revalidate();
-        TextInputProcessing(parent);
-        //setSize(new Dimension(400, 301));
+        input = new TextInputProcessing(parent);
+        prompt.addKeyListener(this);
         parent.repaint();
     }
-    
-    //for testing purposes
-    /*public static void createButton(){
-        JFrame buttonFrame = new JFrame("whatsup?");
-        buttonFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        JComponent chatter = new TextInitiator();
-        chatter.setOpaque(true);
-        buttonFrame.setContentPane(chatter);
-        
-        buttonFrame.pack();
-        buttonFrame.setVisible(true);
-    }
-    public static void main(String[] args){
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createButton();
-            }
-        });
-    }*/
+	public void keyPressed (KeyEvent e) {
+		if (e.getKeyCode()==KeyEvent.VK_ENTER){
+			String s = prompt.getText();
+			e.consume();
+			System.out.println("activated upon enter");
+			input.proccessInput(s);
+		}
+	}
+	
+	public void keyReleased(KeyEvent e){
+		if (e.getKeyCode()==KeyEvent.VK_ENTER){
+			String s = prompt.getText();
+			System.out.println("activated upon enter");
+			input.proccessInput(s);
+		}
+	}
+	
+	public void keyTyped(KeyEvent e){
+		
+	}
 }
