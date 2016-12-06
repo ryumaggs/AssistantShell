@@ -10,16 +10,22 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 public class MainFrame extends JFrame {
+	JFrame windowFrame;
     JPanel contentPane;
     JLabel imageLabel = new JLabel();
     JLabel headerLabel = new JLabel();
     JButton theButton;
     public MainFrame() {
         try {
-            setDefaultCloseOperation(EXIT_ON_CLOSE);
+        	//set up the JFrame
+            windowFrame	= new JFrame();
+            windowFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            windowFrame.setVisible(true);
+            
+            //Set up the JPanel
             contentPane = (JPanel) getContentPane();
             contentPane.setLayout(new BorderLayout());
-            setSize(new Dimension(400, 300));
+            windowFrame.getContentPane().add(contentPane, BorderLayout.CENTER);
             setTitle("GOODLUCK");
             
             // add the header label
@@ -40,7 +46,7 @@ public class MainFrame extends JFrame {
             
             // show it
             this.setLocationRelativeTo(null);
-            this.setVisible(true);
+            windowFrame.pack();
         } catch (Exception exception) {
             exception.printStackTrace();
         }

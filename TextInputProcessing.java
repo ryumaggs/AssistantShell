@@ -1,5 +1,3 @@
-
-
 import java.awt.*;
 import java.awt.Desktop;
 import java.io.IOException;
@@ -8,21 +6,42 @@ import java.net.URISyntaxException;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import java.awt.BorderLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 public class TextInputProcessing extends JPanel
+								 implements KeyListener
 {
 	String name;
 	String activation;
+	JTextArea prompt;
 	
 	//Constructor for the input loop
 	public TextInputProcessing(Container parent){
 		System.out.println("set up prompt via seperate class");
-		JTextArea prompt = new JTextArea();
+		prompt = new JTextArea();
         prompt.setBackground(Color.BLUE);
         prompt.setForeground(Color.WHITE);
         parent.add(prompt, BorderLayout.PAGE_END);
         prompt.requestFocusInWindow();
+        prompt.addKeyListener(this);
+	}
+	public void keyPressed (KeyEvent e) {
+		if (e.getKeyCode()==KeyEvent.VK_ENTER){
+			String s = prompt.getText();
+			proccessInput(s);
+			e.consume();
+			System.out.println(s);
+			repaint();
+		}
 	}
 	
+	public void keyReleased(KeyEvent e){
+	
+	}
+	
+	public void keyTyped(KeyEvent e){
+		
+	}
 	//checks for if exit was typed in
 	public static boolean exit(String input, String exit){
 		if((input.toLowerCase()).equals(exit))
@@ -41,7 +60,7 @@ public class TextInputProcessing extends JPanel
 	//opens a web page with given input
 	public void webPage(String url1){
 		String url = "https://www." + url1 + ".com";
-		
+		System.out.println("webpage attempted to open: " + url);
         if(Desktop.isDesktopSupported()){
             Desktop desktop = Desktop.getDesktop();
             try {
@@ -69,9 +88,10 @@ public class TextInputProcessing extends JPanel
 		if(exit(input, "exit")==true) // checks for exit
 			System.exit(1);
 		retu = parseCommand(input);
-			
+		if(retu[0].equals("open"))
+			webPage(retu[1]);
 		for (int i = 0; i < retu.length; i++){
-			System.out.println(retu[i]);
+			System.out.println("hi" + retu[i]);
 		}
 			//webPage("youtube");
 

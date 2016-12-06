@@ -12,13 +12,10 @@ import java.awt.Toolkit;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 public class TextInitiator extends JPanel
-                           implements ActionListener, KeyListener
+                           implements ActionListener
 {
     JButton theButton;
-    JTextArea prompt = new JTextArea();
     TextInputProcessing input;
     public TextInitiator()
     {
@@ -34,27 +31,6 @@ public class TextInitiator extends JPanel
         Container parent = buttonThatWasClicked.getParent();
         parent.remove(buttonThatWasClicked);
         input = new TextInputProcessing(parent);
-        prompt.addKeyListener(this);
-        parent.repaint();
+        parent.revalidate();
     }
-	public void keyPressed (KeyEvent e) {
-		if (e.getKeyCode()==KeyEvent.VK_ENTER){
-			String s = prompt.getText();
-			e.consume();
-			System.out.println("activated upon enter");
-			input.proccessInput(s);
-		}
-	}
-	
-	public void keyReleased(KeyEvent e){
-		if (e.getKeyCode()==KeyEvent.VK_ENTER){
-			String s = prompt.getText();
-			System.out.println("activated upon enter");
-			input.proccessInput(s);
-		}
-	}
-	
-	public void keyTyped(KeyEvent e){
-		
-	}
 }
