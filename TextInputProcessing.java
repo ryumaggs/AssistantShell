@@ -11,9 +11,8 @@ import java.awt.event.KeyListener;
 public class TextInputProcessing extends JPanel
 								 implements KeyListener
 {
-	String name;
-	String activation;
 	JTextArea prompt;
+	String input = "";
 	
 	//Constructor for the input loop
 	public TextInputProcessing(Container parent){
@@ -27,11 +26,13 @@ public class TextInputProcessing extends JPanel
 	}
 	public void keyPressed (KeyEvent e) {
 		if (e.getKeyCode()==KeyEvent.VK_ENTER){
-			String s = prompt.getText();
-			proccessInput(s);
-			e.consume();
-			System.out.println(s);
-			repaint();
+			input = prompt.getText();
+			if(input.equals(""))
+				return;
+			proccessInput(input);
+			clearInput();
+			prompt.setText(null);
+			revalidate();
 		}
 	}
 	
@@ -41,6 +42,11 @@ public class TextInputProcessing extends JPanel
 	
 	public void keyTyped(KeyEvent e){
 		
+	}
+	
+	//clear input buffer
+	public void clearInput(){
+		input = "";
 	}
 	//checks for if exit was typed in
 	public static boolean exit(String input, String exit){
@@ -91,7 +97,7 @@ public class TextInputProcessing extends JPanel
 		if(retu[0].equals("open"))
 			webPage(retu[1]);
 		for (int i = 0; i < retu.length; i++){
-			System.out.println("hi" + retu[i]);
+			System.out.println(retu[i]);
 		}
 			//webPage("youtube");
 
